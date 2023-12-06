@@ -1,0 +1,7 @@
+IndentWidth: 4
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortLambdasOnASingleLine: None
+SortIncludes: false
+AlwaysBreakTemplateDeclarations: Yes
+ColumnLimit: 116

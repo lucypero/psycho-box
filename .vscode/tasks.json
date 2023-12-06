@@ -1,0 +1,102 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "run premake",
+            "type": "shell",
+            "command": "premake5 ninja",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build - debug",
+            "type": "shell",
+            "command": "ninja",
+            "options": {
+                "cwd": "${workspaceFolder}/bin"
+            },
+            "problemMatcher": {
+                "base": "$msCompile",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}/bin"
+                ]
+            }
+        },
+        {
+            "label": "build - release",
+            "type": "shell",
+            "command": "ninja Release",
+            "options": {
+                "cwd": "${workspaceFolder}/bin"
+            },
+            "problemMatcher": {
+                "base": "$msCompile",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}/bin"
+                ]
+            }
+        },
+        {
+            "label": "build compile json file",
+            "type": "shell",
+            "command": "odin run build_compile_commands.odin -file",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build - all",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "gen levels",
+                "run premake",
+                "build - debug",
+                "build - release"
+            ]
+        },
+        {
+            "label": "gen levels",
+            "type": "shell",
+            "command": "python ldtk_to_game.py",
+            "options": {
+                "cwd": "${workspaceFolder}/docs"
+            },
+        },
+        {
+            "label": "just run",
+            "type": "shell",
+            "command": ".\\bin\\Debug\\lucyban.exe",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+        },
+        {
+            "label": "gen levels and just run",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "gen levels",
+                "just run",
+            ],
+        },
+        {
+            "label": "gen levels and build debug",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "gen levels",
+                "build - debug",
+            ],
+            "problemMatcher": {
+                "base": "$msCompile",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}/bin"
+                ]
+            }
+        }
+    ]
+}
